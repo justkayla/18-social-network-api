@@ -37,9 +37,10 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 ## Link to repository on GitHub
 
-
+https://github.com/justkayla/18-social-network-api
 
 ## Link to screencast
+
 
 
 ## Contributor
