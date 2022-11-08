@@ -20,6 +20,7 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      // TODO: Verify if this is correct validate/match syntax
       validate: [validateEmail, "Please provide a valid email address"],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -29,7 +30,7 @@ const userSchema = new Schema(
     thoughts: [thoughtSchema],
     friends: [userSchema],
   },
-  // Verify if this is correct virtuals syntax
+  // TODO: Verify if this is correct virtuals syntax
   {
     toJSON: {
       virtuals: {

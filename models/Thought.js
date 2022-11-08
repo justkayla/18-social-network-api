@@ -12,13 +12,13 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      // Use a getter method to format the timestamp on query
+      // TODO: Use a getter method to format the timestamp on query
     },
     username: {
       type: String,
       required: true,
     },
-    // Is this correct way to refer to nested docs created in reactionSchema?
+    // TODO: Verify if this is correct way to refer to nested docs created in reactionSchema
     reactions: [
       {
         type: Schema.Types.ObjectId,
@@ -26,7 +26,7 @@ const thoughtSchema = new Schema(
       },
     ],
   },
-  // Verify if this is correct virtuals syntax
+  // TODO: Verify if this is correct virtuals syntax
   {
     toJSON: {
       virtuals: {
