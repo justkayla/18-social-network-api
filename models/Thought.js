@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const reactionSchema = require('./Reaction');
 
 const thoughtSchema = new Schema(
   {
@@ -19,12 +20,7 @@ const thoughtSchema = new Schema(
       required: true,
     },
     // TODO: Verify if this is correct way to refer to nested docs created in reactionSchema
-    reactions: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Reaction",
-      },
-    ],
+    reactions: [reactionSchema],
   },
   // TODO: Verify if this is correct virtuals syntax
   {

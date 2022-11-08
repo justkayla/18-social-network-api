@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const thoughtSchema = require("./Thought");
+const Thought = require('./Thought');
 
 const validateEmail = function (email) {
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -27,8 +27,13 @@ const userSchema = new Schema(
         "Please provide a valid email address",
       ],
     },
-    thoughts: [thoughtSchema],
-    friends: [userSchema],
+    // TODO: check syntax
+    thoughts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Thought'
+    }],
+    // TODO: check syntax
+    friends: [this],
   },
   // TODO: Verify if this is correct virtuals syntax
   {
