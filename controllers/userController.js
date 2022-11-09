@@ -1,44 +1,12 @@
 const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
-// Aggregate function to get the number of users overall
-const headCount = async () =>
-  User.aggregate()
-    .count("userCount")
-    .then((numberofUsers) => numberOfUsers);
-
-// Aggregate function to get all of the thoughts/friends of a user
-const thought = async (userId) =>
-  User.aggregate([
-    // Only include the given user by using $match
-    { $match: { _id: ObjectId(userId) } },
-    {
-      $unwind: "$thoughts",
-    },
-    {
-      $group: {
-        _id: ObjectId(userId),
-        // TODO: Want to populate associated thoughts
-        // TODO: Want to populate associated friends
-      },
-    },
-  ]);
-
 module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
-      .then(async (users) => {
-        const userObj = {
-          users,
-          headCount: await headCount(),
-        };
-        return res.json(userObj);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+      .then((users) => res.json(users))
+      .catch((err) => res.status(500).json(err));
   },
   // Get a single user
   getSingleUser(req, res) {
@@ -49,7 +17,8 @@ module.exports = {
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json({
               user,
-              thought: await thought(req.params.userId),
+              // TODO: Is this correct syntax?
+              thought: await Thought(req.params.userId),
               friend: await friend(req.params.userId),
             })
       )
