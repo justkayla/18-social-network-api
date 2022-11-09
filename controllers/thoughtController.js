@@ -22,12 +22,25 @@ module.exports = {
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => res.json(thought))
-      .catcj((err) => {
+      .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
   // Delete a thought
+  deleteThought(req, res) {
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
+    .then((thought) =>
+    !thought
+    ? res.status(404).json({ message: "No such thought exists" })
+    : res.json({ message: "Thought deleted successfully!" })
+    )
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+  },
+  /*
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughId })
       .then((thought) =>
@@ -39,6 +52,7 @@ module.exports = {
       .then(() => res.json({ message: "Thought and reactions deleted!" }))
       .catch((err) => res.status(500).json(err));
   },
+  */
   // Update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
@@ -71,7 +85,7 @@ module.exports = {
   },
   // Remove a reaction to a thought
   removeReaction(req, res) {
-    Thought.findOneAndUpdate(
+    Thought.findOneAndRemove(
       { _id: req.params.thoughtId },
       // TODO: Correct syntax?
       { $pull: { reaction: { reactionId: req.params.reactionId } } },

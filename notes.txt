@@ -1,0 +1,29 @@
+
+/api/users/ Routes
+
+✔️ GET      /api/users/
+✔️ POST     /api/users/
+✔️ PUT      /api/users/:userId/
+✔️ DELETE   /api/users/:userId/
+            ❓ Delete associated thoughts and friends when specific user is deleted
+
+✔️ POST     /api/users/:userId/friends
+❌ DELETE   /api/users/:userId/friends/:friendId
+            ❓ How to add unique id to friends?
+
+
+/api/thoughts/ Routes
+
+✔️ GET      /api/thoughts/
+✔️ POST     /api/thoughts/
+            ❓ How to populate associated thoughts/friends with single user?
+✔️ PUT      /api/thoughts/:thoughtId/
+✔️ DELETE   /api/thoughts/:thoughtId/
+            ❓ Delete associated reactions when specific thought is deleted
+
+✔️ POST     /api/thoughts/:thoughtId/reactions
+❌ DELETE   /api/thoughts/:thoughtId/reactions/:reactionId
+
+🤔 Is there a more manageable way to handle searching by ids?
+
+
