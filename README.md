@@ -45,4 +45,4 @@ https://app.castify.com/view/97ae612a-234e-44fb-a6f0-66199871fac5
 
 ## Contributor
 
-Kayla Justice &copy;2022   
+Kayla Justice 2022   
