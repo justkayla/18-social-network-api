@@ -30,7 +30,7 @@ const userSchema = new Schema(
     // TODO: check syntax
     thoughts: [{
       type: Schema.Types.ObjectId,
-      ref: 'Thought'
+      ref: 'thought'
     }],
     // TODO: check syntax
     friends: [this],

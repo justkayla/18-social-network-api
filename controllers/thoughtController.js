@@ -21,7 +21,13 @@ module.exports = {
   // Create a thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thought) => {
+        User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $push: { thoughts: thought._id } },
+          { runValidators: true, new: true }
+        ).then((user) => res.json(user))        
+      })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -30,15 +36,15 @@ module.exports = {
   // Delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
-    .then((thought) =>
-    !thought
-    ? res.status(404).json({ message: "No such thought exists" })
-    : res.json({ message: "Thought deleted successfully!" })
-    )
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "No such thought exists" })
+          : res.json({ message: "Thought deleted successfully!" })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   /*
   deleteThought(req, res) {

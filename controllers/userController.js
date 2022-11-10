@@ -8,37 +8,21 @@ module.exports = {
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a single user
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
+      .populate("friends")
+      .populate("thoughts")      
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-  /*
-  getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
-      .select("-__v")
-      .then(async (user) =>
-        !user
-          ? res.status(404).json({ message: "No user with that ID" })
-          : res.json({
-              user,
-              // TODO: Is this correct syntax?
-              thought: await Thought(req.params.userId),
-              friend: await friend(req.params.userId),
-            })
+          : res.json({ user })
       )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
-  */
   // Create a new user
   createUser(req, res) {
     User.create(req.body)
@@ -78,7 +62,7 @@ module.exports = {
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
+      { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>
@@ -92,8 +76,7 @@ module.exports = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      // TODO: Friends are also users, is this correct syntax?
-      { $pull: { friend: { friendId: req.params.friendId } } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>

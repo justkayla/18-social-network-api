@@ -7,15 +7,12 @@
 ❓ Delete associated thoughts and friends when specific user is deleted
 
 ✔️ POST     /api/users/:userId/friends
-❌ DELETE   /api/users/:userId/friends/:friendId
-❓ How to add unique id to friends?
-
+✔️ DELETE   /api/users/:userId/friends/:friendId
 
 /api/thoughts/ Routes
 
 ✔️ GET      /api/thoughts/
 ✔️ POST     /api/thoughts/
-❓ How to populate associated thoughts/friends with single user?
 ✔️ PUT      /api/thoughts/:thoughtId/
 ✔️ DELETE   /api/thoughts/:thoughtId/
 ❓ Delete associated reactions when specific thought is deleted
@@ -25,5 +22,7 @@
 
 
 🤔 Is there a more manageable way to handle searching by ids?
+
+If there's time, I have some issues with running my #19 HW...
 
 
