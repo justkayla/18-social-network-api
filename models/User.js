@@ -19,23 +19,19 @@ const userSchema = new Schema(
       required: [true, "Email address is required"],
       unique: true,
       trim: true,
-      lowercase: true,
-      // TODO: Verify if this is correct validate/match syntax
+      lowercase: true,      
       validate: [validateEmail, "Please provide a valid email address"],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please provide a valid email address",
       ],
-    },
-    // TODO: check syntax
+    },    
     thoughts: [{
       type: Schema.Types.ObjectId,
       ref: 'thought'
-    }],
-    // TODO: check syntax
+    }],    
     friends: [this],
-  },
-  // TODO: Verify if this is correct virtuals syntax
+  },  
   {
     toJSON: {
       virtuals: {

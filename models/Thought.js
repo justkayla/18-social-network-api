@@ -18,11 +18,9 @@ const thoughtSchema = new Schema(
     username: {
       type: String,
       required: true,
-    },
-    // TODO: Verify if this is correct way to refer to nested docs created in reactionSchema
+    },    
     reactions: [reactionSchema],
-  },
-  // TODO: Verify if this is correct virtuals syntax
+  }, 
   {
     toJSON: {
       virtuals: {
