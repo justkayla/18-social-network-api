@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
       .populate("friends")
-      .populate("thoughts")      
+      .populate("thoughts")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -27,19 +26,9 @@ module.exports = {
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
-  },
-  // Delete a user
-  deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No such user exists" })
-          : res.json({ message: "User successfully deleted" })
-      )
       .catch((err) => {
         console.log(err);
-        res.status(500).json(err);
+        return res.status(500).json(err);
       });
   },
   // Update a user
@@ -56,9 +45,23 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // Delete a user and associated thoughts
+  deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No such user exists" })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+      )
+      .then(() => res.json({ message: "User and thoughts deleted!" }))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
   // Add a friend to a user
   addFriend(req, res) {
-    console.log("You are adding a friend!");
+    console.log("You are adding a friend");
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -72,12 +75,12 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove friend from a user
-  removeFriend(req, res) {
+  // delete friend from a user
+  deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: req.params.friendId } },
-      { runValidators: true, new: true }
+      { new: true }
     )
       .then((user) =>
         !user

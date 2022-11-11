@@ -5,7 +5,7 @@ const {
   createThought,
   deleteThought,
   updateThought,
-  addReaction,
+  createReaction,
   removeReaction,
 } = require("../../controllers/thoughtController.js");
 
@@ -20,7 +20,7 @@ router
   .delete(deleteThought);
 
 // /api/thoughts/:thoughtId/reactions
-router.route("/:thoughtId/reactions").post(addReaction);
+router.route("/:thoughtId/reactions").post(createReaction);
 
 // /api/thoughts/:thoughtId/reactions/:reactionId
 router.route("/:thoughtId/reactions/:reactionId").delete(removeReaction);
