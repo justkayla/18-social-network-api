@@ -41,7 +41,7 @@ https://github.com/justkayla/18-social-network-api
 
 ## Link to screencast
 
-https://app.castify.com/view/97ae612a-234e-44fb-a6f0-66199871fac5 
+https://app.castify.com/view/ed1646e0-4c7b-494e-b6d1-a54243c02d75 
 
 ## Contributor
 
