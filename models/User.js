@@ -19,7 +19,7 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      validate: [validateEmail, "Please provide a valid email address"],      
+      validate: [validateEmail, "Please provide a valid email address"],
     },
     thoughts: [
       {
@@ -31,17 +31,18 @@ const userSchema = new Schema(
   },
   {
     toJSON: {
-      virtuals: {
-        friendCount: {
-          get() {
-            return this.friends.length;
-          },
-        },
-      },
+      virtuals: true,
+      getters: true,
     },
+    id: false,
   }
 );
 
-const User = model('User', userSchema);
+// Get friend count
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
+
+const User = model("User", userSchema);
 
 module.exports = User;

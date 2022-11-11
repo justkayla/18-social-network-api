@@ -4,7 +4,7 @@
 ✔️ POST     /api/users/
 ✔️ PUT      /api/users/:userId/
 ✔️ DELETE   /api/users/:userId/
-❓ Delete associated thoughts and friends when specific user is deleted
+✔️ Delete associated thoughts when specific user is deleted
 
 ✔️ POST     /api/users/:userId/friends
 ✔️ DELETE   /api/users/:userId/friends/:friendId
@@ -15,7 +15,7 @@
 ✔️ POST     /api/thoughts/
 ✔️ PUT      /api/thoughts/:thoughtId/
 ✔️ DELETE   /api/thoughts/:thoughtId/
-❓ Delete associated reactions when specific thought is deleted
+✔️ Delete associated reactions when specific thought is deleted
 
 ✔️ POST     /api/thoughts/:thoughtId/reactions
 ❌ DELETE   /api/thoughts/:thoughtId/reactions/:reactionId
